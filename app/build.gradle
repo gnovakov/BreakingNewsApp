@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    //id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+//    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.gnova.breakingnewsapp"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Core with Ktx
+    implementation "androidx.core:core-ktx:$version_core"
+
+    // AppCompat
+    implementation "androidx.appcompat:appcompat:$version_appcompat"
+
+    // Material Design
+    implementation "com.google.android.material:material:$version_material"
+
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    // Retrofit Rx Support
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$version_retrofit"
+
+    // okHttp
+    implementation "com.squareup.okhttp3:logging-interceptor:$version_okhttp"
+    implementation "com.squareup.okhttp3:okhttp:$version_okhttp"
+
+    // Moshi Library - Could also use Gson Library
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$version_rxandroid"
+    implementation "io.reactivex.rxjava2:rxkotlin:$version_rxkotlin"
+
+    // Picasso Image Library
+    implementation "com.squareup.picasso:picasso:$version_picasso"
+
+    // dagger2
+    implementation "com.google.dagger:dagger:$version_dagger"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt "com.google.dagger:dagger-compiler:$version_dagger"
+
+    //Testing
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+    implementation project(':data')
+    implementation project(':domain')
+}
