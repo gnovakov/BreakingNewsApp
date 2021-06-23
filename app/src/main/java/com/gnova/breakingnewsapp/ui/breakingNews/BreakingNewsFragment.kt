@@ -9,6 +9,7 @@ import com.gnova.breakingnewsapp.databinding.FragmentBreakingNewsBinding
 
 class BreakingNewsFragment : Fragment() {
 
+
     private var _binding: FragmentBreakingNewsBinding? = null
     private val binding get() = _binding!!
 
