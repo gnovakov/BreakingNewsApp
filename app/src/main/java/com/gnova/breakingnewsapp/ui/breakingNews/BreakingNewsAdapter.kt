@@ -35,7 +35,7 @@ class BreakingNewsAdapter(
 
         }
 
-    }
+
 
     companion object DiffCallback : DiffUtil.ItemCallback<Article>() {
 
