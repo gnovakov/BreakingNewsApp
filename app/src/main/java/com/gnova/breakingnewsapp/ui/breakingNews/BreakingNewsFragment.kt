@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gnova.breakingnewsapp.App
 import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentBreakingNewsBinding
@@ -23,6 +24,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity().application as App).appComponent.inject(this)
         val binding = FragmentBreakingNewsBinding.bind(view)
         _binding = binding
 
