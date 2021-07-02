@@ -7,29 +7,35 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gnova.breakingnewsapp.R
+import com.gnova.breakingnewsapp.databinding.ArticlePreviewItemBinding
 import com.gnova.domain.models.Article
-import com.squareup.picasso.Picasso
 
 class BreakingNewsAdapter(
-        private val onClickListener: OnClickListener
-        ) : ListAdapter<Article, BreakingNewsAdapter.ArticleHolder>(DiffCallback) {
+        //private val onClickListener: OnClickListener
+        ) : ListAdapter<Article, BreakingNewsAdapter.ArticleViewHolder>(DiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.article_preview_item, parent, false)
-        return ArticleHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
+        return ArticleViewHolder(ArticlePreviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+
     }
 
-    override fun onBindViewHolder(holder: ArticleHolder, position: Int) {
+    override fun onBindViewHolder( holder: ArticleViewHolder, position: Int) {
         val articles = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(articles)
+            //onClickListener.onClick(articles)
         }
         holder.bind(articles)
     }
 
-    class ArticleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ArticleViewHolder(val binding: ArticlePreviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(article: Article) {
+
+            binding.titleTv.text = article.title
+            binding.descriptionTv.text = article.description
+            binding.publishedAtTv.text = article.publishedAt
+            binding.sourceTv.text = article.source
+
 
             }
 

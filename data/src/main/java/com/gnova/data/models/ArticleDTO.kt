@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class ArticleDTO(
         @Json(name = "author")
-        val author: Any,
+        val author: String,
         @Json(name = "content")
         val content: String,
         @Json(name = "description")
