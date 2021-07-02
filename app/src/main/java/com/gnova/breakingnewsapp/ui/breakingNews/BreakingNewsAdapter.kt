@@ -1,28 +1,28 @@
 package com.gnova.breakingnewsapp.ui.breakingNews
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.databinding.ArticlePreviewItemBinding
+import com.gnova.breakingnewsapp.ui.replaceUnusedChars
 import com.gnova.domain.models.Article
+import com.squareup.picasso.Picasso
 
 class BreakingNewsAdapter(
-        //private val onClickListener: OnClickListener
+        private val onClickListener: OnClickListener
         ) : ListAdapter<Article, BreakingNewsAdapter.ArticleViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder(ArticlePreviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-
     }
 
     override fun onBindViewHolder( holder: ArticleViewHolder, position: Int) {
         val articles = getItem(position)
         holder.itemView.setOnClickListener {
-            //onClickListener.onClick(articles)
+            onClickListener.onClick(articles)
         }
         holder.bind(articles)
     }
@@ -31,15 +31,21 @@ class BreakingNewsAdapter(
 
         fun bind(article: Article) {
 
+
+
             binding.titleTv.text = article.title
             binding.descriptionTv.text = article.description
-            binding.publishedAtTv.text = article.publishedAt
+            binding.publishedAtTv.text = article.publishedAt.replaceUnusedChars("T", " ", "Z", "")
             binding.sourceTv.text = article.source
 
-
-            }
-
+            Picasso.get()
+                .load(article.urlToImage)
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image)
+                .into(binding.articleImageIv)
         }
+
+    }
 
 
 
@@ -59,3 +65,8 @@ class BreakingNewsAdapter(
     }
 
 }
+
+
+
+
+

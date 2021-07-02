@@ -6,6 +6,9 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gnova.breakingnewsapp.App
 import com.gnova.breakingnewsapp.R
@@ -20,7 +23,11 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     internal lateinit var viewModelFactory: ViewModelFactory<BreakingNewsViewModel>
     private lateinit var viewModel: BreakingNewsViewModel
     private val adapter: BreakingNewsAdapter by lazy {
-        BreakingNewsAdapter()
+        BreakingNewsAdapter(
+            BreakingNewsAdapter.OnClickListener{
+                onItemClicked(it)
+            }
+        )
     }
 
     private var _binding: FragmentBreakingNewsBinding? = null
@@ -34,12 +41,11 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(BreakingNewsViewModel::class.java)
 
-        //setupRecyclerView()
+        setupRecyclerView()
 
         viewModel.onViewLoaded()
 
         observeViewState()
-        //observeClick()
 
     }
 
@@ -67,7 +73,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     }
 
     private fun showNews(articles: List<Article>) {
-
+        Log.d("TAG", "showNews")
         adapter.submitList(articles)
     }
 
@@ -80,6 +86,12 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             it.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
             it.adapter = adapter
         }
+    }
+
+    private fun onItemClicked(article: Article) {
+        findNavController().navigate(
+            BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(article)
+        )
     }
 
 

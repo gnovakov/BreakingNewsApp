@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     //id 'kotlin-android-extensions'
     id 'kotlin-kapt'
-//    id 'androidx.navigation.safeargs.kotlin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -27,6 +27,7 @@ android {
         }
     }
     buildFeatures {
+        dataBinding false
         viewBinding true
     }
     compileOptions {

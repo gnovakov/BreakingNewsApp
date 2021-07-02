@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.gnova.breakingnewsapp.ui.breakingNews.BreakingNewsFragment">
 
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Breaking News Fragment"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/breaking_news_rv"
@@ -25,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/article_preview_item"/>
+        tools:listitem="@layout/article_preview_item" />
 
     <ImageView
         android:id="@+id/status_image_iv"
