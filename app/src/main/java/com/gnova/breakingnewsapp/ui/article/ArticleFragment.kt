@@ -32,6 +32,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             article.url?.let { loadUrl(it) }
         }
 
+
     }
 
 

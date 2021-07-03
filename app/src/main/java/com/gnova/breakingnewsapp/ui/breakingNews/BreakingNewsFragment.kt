@@ -14,6 +14,7 @@ import com.gnova.breakingnewsapp.App
 import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentBreakingNewsBinding
+import com.gnova.breakingnewsapp.ui.NewsAdapter
 import com.gnova.domain.models.Article
 import javax.inject.Inject
 
@@ -22,9 +23,9 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     @Inject
     internal lateinit var viewModelFactory: ViewModelFactory<BreakingNewsViewModel>
     private lateinit var viewModel: BreakingNewsViewModel
-    private val adapter: BreakingNewsAdapter by lazy {
-        BreakingNewsAdapter(
-            BreakingNewsAdapter.OnClickListener{
+    private val adapter: NewsAdapter by lazy {
+        NewsAdapter(
+                NewsAdapter.OnClickListener{
                 onItemClicked(it)
             }
         )
