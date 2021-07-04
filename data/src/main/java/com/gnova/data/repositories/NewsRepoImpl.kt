@@ -21,4 +21,13 @@ class NewsRepoImpl@Inject constructor(
 
     }
 
+    override fun searchNews(search: String, page: Int): Single<List<Article>> {
+
+        return newsApi.searchNews(search)
+                .map {
+                    articleMapper.mapToDomainList(it.articles)
+                }
+
+    }
+
 }

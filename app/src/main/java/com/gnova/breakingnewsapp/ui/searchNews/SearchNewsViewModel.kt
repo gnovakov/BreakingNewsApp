@@ -22,16 +22,16 @@ open class SearchNewsViewModel @Inject constructor(
         get() = _viewState
 
 
-    fun onViewLoaded() {
-        getBreakingNews("gb", 1)
+    fun onSearchButtonClick(search: String) {
+        searchNews(search, 1)
     }
 
 
-    private fun getBreakingNews(country: String, page: Int) {
+    private fun searchNews(search: String, page: Int) {
 
         _viewState.value = SearchNewsViewState.Loading
         add(
-            newsRepoImpl.getBreakingNews(country, page)
+            newsRepoImpl.searchNews(search, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
