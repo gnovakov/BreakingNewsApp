@@ -2,27 +2,21 @@ package com.gnova.breakingnewsapp.ui.searchNews
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gnova.breakingnewsapp.App
 import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
-import com.gnova.breakingnewsapp.databinding.FragmentSavedNewsBinding
 import com.gnova.breakingnewsapp.databinding.FragmentSearchNewsBinding
 import com.gnova.breakingnewsapp.ui.NewsAdapter
-import com.gnova.breakingnewsapp.ui.breakingNews.BreakingNewsViewModel
-import com.gnova.breakingnewsapp.ui.searchNews.SearchNewsFragment_MembersInjector.create
+import com.gnova.breakingnewsapp.ui.ViewState
+import com.gnova.breakingnewsapp.ui.ViewState.*
 import com.gnova.domain.models.Article
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.*
-import java.util.concurrent.TimeUnit
+
 import javax.inject.Inject
 
 class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
@@ -51,18 +45,43 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
         setupRecyclerView()
 
-        //observeViewState()
+        searchNews()
+
+        observeViewState()
     }
 
     private fun searchNews(){
-        binding.searchNewsEt.addTextChangedListener { editable ->
-                editable?.let {
-                    if(editable.toString().isNotEmpty()) {
-                        viewModel.searchNews(editable.toString())
-                    }
-                }
+        binding.searchBtn.setOnClickListener {
+            if(binding.searchNewsEt.text.toString().isNotEmpty()) {
+                viewModel.onSearchButtonClick(binding.searchNewsEt.text.toString());
             }
         }
+    }
+
+
+    private fun observeViewState() {
+        viewModel.viewState.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is Loading -> {
+                    Log.d("TAG", "LOADING")
+                    binding.statusImageIv.visibility = View.VISIBLE
+                    binding.statusImageIv.setImageResource(R.drawable.loading_animation)
+                }
+                is Error -> {
+                    Log.d("TAG", "ERROR BREAKING NEWS FRAGMENT")
+                    binding.statusImageIv.visibility = View.VISIBLE
+                    binding.statusImageIv.setImageResource(R.drawable.ic_connection_error)
+                }
+                is Presenting -> {
+                    binding.statusImageIv.visibility = View.GONE
+                    Log.d("TAG", "PRESENTING!!!")
+                    showNews(it.results)
+                }
+            }
+        })
+    }
+
+
 
 
     private fun showNews(articles: List<Article>) {

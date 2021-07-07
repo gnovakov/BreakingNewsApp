@@ -19,7 +19,7 @@ interface NewsApi {
 
     @GET("everything")
     fun searchNews(
-            @Query("q") outCode: String,
+            @Query("q") searchQuery: String,
             @Query("page") page: Int = 1,
             @Query("apikey") apiKey: String  = API_KEY
     ): Single<NewsResponse>

@@ -13,6 +13,7 @@ import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentBreakingNewsBinding
 import com.gnova.breakingnewsapp.ui.NewsAdapter
+import com.gnova.breakingnewsapp.ui.ViewState
 import com.gnova.domain.models.Article
 import javax.inject.Inject
 
@@ -51,25 +52,26 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     private fun observeViewState() {
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             when (it) {
-                is BreakingNewsViewState.Loading -> {
+                is ViewState.Loading -> {
                     Log.d("TAG", "LOADING")
                     binding.statusImageIv.visibility = View.VISIBLE
                     binding.statusImageIv.setImageResource(R.drawable.loading_animation)
                 }
-                is BreakingNewsViewState.Error -> {
+                is ViewState.Error -> {
                     Log.d("TAG", "ERROR BREAKING NEWS FRAGMENT")
                     binding.statusImageIv.visibility = View.VISIBLE
                     binding.statusImageIv.setImageResource(R.drawable.ic_connection_error)
                 }
-                is BreakingNewsViewState.Presenting -> {
+                is ViewState.Presenting -> {
                     binding.statusImageIv.visibility = View.GONE
                     Log.d("TAG", "PRESENTING!!!")
                     showNews(it.results)
                 }
-
             }
         })
     }
+
+
 
     private fun showNews(articles: List<Article>) {
         Log.d("TAG", "showNews")
@@ -92,7 +94,6 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(article)
         )
     }
-
 
     override fun onDestroyView() {
         _binding = null

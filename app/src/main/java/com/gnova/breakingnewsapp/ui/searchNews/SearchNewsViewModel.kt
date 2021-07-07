@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gnova.breakingnewsapp.ui.ViewState
+import com.gnova.breakingnewsapp.ui.ViewState.*
 import com.gnova.data.repositories.NewsRepoImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.plugins.RxJavaPlugins.onError
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -17,31 +20,30 @@ open class SearchNewsViewModel @Inject constructor(
         ) : ViewModel() {
 
     // View State
-    private val _viewState = MutableLiveData<SearchNewsViewState>()
-    val viewState: LiveData<SearchNewsViewState>
+    private val _viewState = MutableLiveData<ViewState>()
+    val viewState: LiveData<ViewState>
         get() = _viewState
 
 
-    fun onSearchButtonClick(search: String) {
-        searchNews(search, 1)
+    fun onSearchButtonClick(searchQuery: String) {
+        searchNews(searchQuery, 1)
     }
 
 
-    private fun searchNews(search: String, page: Int) {
+    private fun searchNews(searchQuery: String, page: Int) {
 
-        _viewState.value = SearchNewsViewState.Loading
+        _viewState.value = Loading
         add(
-            newsRepoImpl.searchNews(search, page)
+            newsRepoImpl.searchNews(searchQuery, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _viewState.value = SearchNewsViewState.Presenting(it)
+                    _viewState.value = Presenting(it)
                 }, {
-                    RxJavaPlugins.onError(it)
                     Log.d("TAG", "ERROR HOME VM")
-                    _viewState.value = SearchNewsViewState.Error
-                }
-                )
+                    onError(it)
+                    _viewState.value = Error
+                })
         )
     }
 

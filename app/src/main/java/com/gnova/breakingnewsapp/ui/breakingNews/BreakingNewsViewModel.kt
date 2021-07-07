@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gnova.breakingnewsapp.ui.ViewState
 import com.gnova.data.repositories.NewsRepoImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -17,8 +18,8 @@ open class BreakingNewsViewModel @Inject constructor(
         ) : ViewModel() {
 
     // View State
-    private val _viewState = MutableLiveData<BreakingNewsViewState>()
-    val viewState: LiveData<BreakingNewsViewState>
+    private val _viewState = MutableLiveData<ViewState>()
+    val viewState: LiveData<ViewState>
         get() = _viewState
 
 
@@ -29,19 +30,18 @@ open class BreakingNewsViewModel @Inject constructor(
 
     private fun getBreakingNews(country: String, page: Int) {
 
-        _viewState.value = BreakingNewsViewState.Loading
+        _viewState.value = ViewState.Loading
         add(
             newsRepoImpl.getBreakingNews(country, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    _viewState.value = BreakingNewsViewState.Presenting(it)
+                    _viewState.value = ViewState.Presenting(it)
                 }, {
                     RxJavaPlugins.onError(it)
                     Log.d("TAG", "ERROR HOME VM")
-                    _viewState.value = BreakingNewsViewState.Error
-                }
-                )
+                    _viewState.value = ViewState.Error
+                })
         )
     }
 
