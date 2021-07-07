@@ -40,8 +40,8 @@ open class SearchNewsViewModel @Inject constructor(
                 .subscribe({
                     _viewState.value = Presenting(it)
                 }, {
-                    Log.d("TAG", "ERROR HOME VM")
-                    onError(it)
+                    Log.d("TAG", "ERROR HOME VM $it")
+                    //onError(it)
                     _viewState.value = Error
                 })
         )

@@ -38,8 +38,8 @@ open class BreakingNewsViewModel @Inject constructor(
                 .subscribe({
                     _viewState.value = ViewState.Presenting(it)
                 }, {
-                    RxJavaPlugins.onError(it)
-                    Log.d("TAG", "ERROR HOME VM")
+                    //RxJavaPlugins.onError(it)
+                    Log.d("TAG", "ERROR HOME VM $it")
                     _viewState.value = ViewState.Error
                 })
         )

@@ -64,15 +64,20 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
             when (it) {
                 is Loading -> {
                     Log.d("TAG", "LOADING")
-                    binding.statusImageIv.visibility = View.VISIBLE
-                    binding.statusImageIv.setImageResource(R.drawable.loading_animation)
+                    binding.statusTextTv.visibility = View.GONE
+                    //binding.statusImageIv.visibility = View.VISIBLE
+                    //binding.statusImageIv.setImageResource(R.drawable.loading_animation)
+
                 }
                 is Error -> {
                     Log.d("TAG", "ERROR BREAKING NEWS FRAGMENT")
                     binding.statusImageIv.visibility = View.VISIBLE
+                    binding.statusTextTv.visibility = View.VISIBLE
                     binding.statusImageIv.setImageResource(R.drawable.ic_connection_error)
+                    binding.searchNewsRv.visibility = View.INVISIBLE
                 }
                 is Presenting -> {
+                    binding.searchNewsRv.visibility = View.VISIBLE
                     binding.statusImageIv.visibility = View.GONE
                     Log.d("TAG", "PRESENTING!!!")
                     showNews(it.results)

@@ -8,4 +8,6 @@
     <string name="save_article">Save Article</string>
     <string name="status_image">Status Image</string>
     <string name="search">Search...</string>
+    <string name="search_error_text">Search Error Text</string>
+    <string name="search_error_message">No news was found for your search term.</string>
 </resources>
