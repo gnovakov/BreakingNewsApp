@@ -1,4 +1,4 @@
-package com.gnova.breakingnewsapp.ui.breakingNews
+package com.gnova.breakingnewsapp.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,7 +13,7 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-open class BreakingNewsViewModel @Inject constructor(
+open class NewsViewModel @Inject constructor(
         private val newsRepoImpl: NewsRepoImpl
         ) : ViewModel() {
 
@@ -25,6 +25,11 @@ open class BreakingNewsViewModel @Inject constructor(
 
     fun onViewLoaded() {
         getBreakingNews("gb", 1)
+    }
+
+
+    fun onSearchButtonClick(searchQuery: String) {
+        searchNews(searchQuery, 1)
     }
 
 
@@ -40,6 +45,23 @@ open class BreakingNewsViewModel @Inject constructor(
                 }, {
                     //RxJavaPlugins.onError(it)
                     Log.d("TAG", "ERROR HOME VM $it")
+                    _viewState.value = ViewState.Error
+                })
+        )
+    }
+
+    private fun searchNews(searchQuery: String, page: Int) {
+
+        _viewState.value = ViewState.Loading
+        add(
+            newsRepoImpl.searchNews(searchQuery, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _viewState.value = ViewState.Presenting(it)
+                }, {
+                    Log.d("TAG", "ERROR HOME VM $it")
+                    //onError(it)
                     _viewState.value = ViewState.Error
                 })
         )

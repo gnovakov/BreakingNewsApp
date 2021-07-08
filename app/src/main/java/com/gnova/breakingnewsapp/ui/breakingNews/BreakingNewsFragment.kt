@@ -13,6 +13,7 @@ import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentBreakingNewsBinding
 import com.gnova.breakingnewsapp.ui.NewsAdapter
+import com.gnova.breakingnewsapp.ui.NewsViewModel
 import com.gnova.breakingnewsapp.ui.ViewState
 import com.gnova.domain.models.Article
 import javax.inject.Inject
@@ -20,8 +21,8 @@ import javax.inject.Inject
 class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelFactory<BreakingNewsViewModel>
-    private lateinit var viewModel: BreakingNewsViewModel
+    internal lateinit var viewModelFactory: ViewModelFactory<NewsViewModel>
+    private lateinit var viewModel: NewsViewModel
     private val adapter: NewsAdapter by lazy {
         NewsAdapter(
                 NewsAdapter.OnClickListener{
@@ -39,7 +40,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
         val binding = FragmentBreakingNewsBinding.bind(view)
         _binding = binding
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(BreakingNewsViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
 
         setupRecyclerView()
 

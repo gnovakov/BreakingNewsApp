@@ -13,6 +13,7 @@ import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentSearchNewsBinding
 import com.gnova.breakingnewsapp.ui.NewsAdapter
+import com.gnova.breakingnewsapp.ui.NewsViewModel
 import com.gnova.breakingnewsapp.ui.ViewState
 import com.gnova.breakingnewsapp.ui.ViewState.*
 import com.gnova.domain.models.Article
@@ -22,8 +23,8 @@ import javax.inject.Inject
 class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     @Inject
-    internal lateinit var viewModelFactory: ViewModelFactory<SearchNewsViewModel>
-    private lateinit var viewModel: SearchNewsViewModel
+    internal lateinit var viewModelFactory: ViewModelFactory<NewsViewModel>
+    private lateinit var viewModel: NewsViewModel
     private val adapter: NewsAdapter by lazy {
         NewsAdapter(
                 NewsAdapter.OnClickListener{
@@ -41,7 +42,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
         val binding = FragmentSearchNewsBinding.bind(view)
         _binding = binding
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SearchNewsViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
 
         setupRecyclerView()
 
@@ -65,9 +66,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
                 is Loading -> {
                     Log.d("TAG", "LOADING")
                     binding.statusTextTv.visibility = View.GONE
-                    //binding.statusImageIv.visibility = View.VISIBLE
-                    //binding.statusImageIv.setImageResource(R.drawable.loading_animation)
-
+                    binding.statusImageIv.visibility = View.GONE
                 }
                 is Error -> {
                     Log.d("TAG", "ERROR BREAKING NEWS FRAGMENT")

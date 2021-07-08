@@ -5,8 +5,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 dependencies {
@@ -14,8 +14,17 @@ dependencies {
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    // Retrofit Rx2 Support
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$version_retrofit"
+
+    // Room
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+
+    //Room Rx2 Support
+    implementation "androidx.room:room-rxjava2:$version_room"
 
     // Rx
     implementation "io.reactivex.rxjava2:rxandroid:$version_rxandroid"

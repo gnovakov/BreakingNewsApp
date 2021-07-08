@@ -1,8 +1,13 @@
 package com.gnova.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity(tableName = "Articles")
 data class ArticleDTO(
+        @PrimaryKey(autoGenerate = true)
+        var id: Int? = null,
         @Json(name = "author")
         val author: String,
         @Json(name = "content")
