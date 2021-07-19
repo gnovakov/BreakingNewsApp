@@ -36,7 +36,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as App).appComponent.inject(this)
+        (requireActivity().application as App).component.inject(this)
         val binding = FragmentBreakingNewsBinding.bind(view)
         _binding = binding
 

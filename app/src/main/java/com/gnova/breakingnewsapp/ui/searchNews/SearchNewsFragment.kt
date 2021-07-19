@@ -38,7 +38,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as App).appComponent.inject(this)
+        (requireActivity().application as App).component.inject(this)
         val binding = FragmentSearchNewsBinding.bind(view)
         _binding = binding
 
