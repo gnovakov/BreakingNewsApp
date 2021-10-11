@@ -6,7 +6,7 @@ import com.gnova.data.models.SourceDTO
 class Converters {
 
     @TypeConverter
-    fun fromSource(source: SourceDTO): String {
+    fun fromSource(source: SourceDTO): String? {
         return source.name
     }
 

@@ -3,10 +3,8 @@ package com.gnova.data.repositories
 import com.gnova.data.api.NewsApi
 import com.gnova.data.db.ArticleDao
 import com.gnova.data.mappers.ArticleDTOMapper
-import com.gnova.data.models.ArticleDTO
 import com.gnova.domain.models.Article
 import com.gnova.domain.repositories.NewsRepo
-import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -34,8 +32,8 @@ class NewsRepoImpl@Inject constructor(
 
     }
 
-    fun insertUpdate(articleDTO: ArticleDTO) : Completable =
-        articleDao.insertUpdate(articleDTO)
-
+    fun insertUpdate(article: Article) {
+        articleDao.insertUpdate(articleMapper.mapToEntity(article))
+    }
 
 }

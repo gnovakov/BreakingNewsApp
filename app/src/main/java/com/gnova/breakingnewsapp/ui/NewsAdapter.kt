@@ -35,7 +35,7 @@ class NewsAdapter(
             binding.titleTv.text = article.title
             binding.descriptionTv.text = article.description
             binding.publishedAtTv.text = article.publishedAt.replaceUnusedChars("T", " ", "Z", "")
-            binding.sourceTv.text = article.source
+            binding.sourceTv.text = article.source.name
 
             Picasso.get()
                 .load(article.urlToImage)
