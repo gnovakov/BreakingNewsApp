@@ -6,6 +6,7 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.gnova.breakingnewsapp.App
 import com.gnova.breakingnewsapp.R
 import com.gnova.breakingnewsapp.ViewModelFactory
 import com.gnova.breakingnewsapp.databinding.FragmentArticleBinding
@@ -25,6 +26,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity().application as App).component.inject(this)
         val binding = FragmentArticleBinding.bind(view)
         _binding = binding
 
